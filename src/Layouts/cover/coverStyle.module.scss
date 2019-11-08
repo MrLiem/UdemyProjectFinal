@@ -1,0 +1,64 @@
+@import '../../SCSS/mixin';
+@import '../../SCSS/variables';
+.myCover {
+    background-image: url("../../cover.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 400px;
+    position: relative;
+    .cover_content {
+        position: absolute;
+        top: 30%;
+        left: 10%;
+        width: 30%;
+        h1 {
+            @include text($color-white-0,
+            $fs-4,
+            $fw-bold);
+        }
+        p {
+            @include text($color-white-0,
+            $fs-2 - 2,
+            $fw-normal);
+        }
+        .input {
+            .form-control {
+                border: none;
+                border-bottom-left-radius: 2px;
+                border-top-left-radius: 2px;
+                border-color: transparent;
+                padding: $pd-2 * 1.3;
+                &::placeholder {
+                    @include text($color-gray-2,
+                    $fs-2,
+                    $fw-normal);
+                }
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+            .input-group-prepend {
+                .input-group-text {
+                    background-color: $color-white-0;
+                    color: $color-red-0;
+                    border: none;
+                    padding: 0px $pd-2;
+                    border-top-right-radius: 2px;
+                    border-bottom-right-radius: 2px;
+                }
+                &:hover {
+                    .input-group-text {
+                        background-color: $color-red-0;
+                        color: $color-white-0;
+                    }
+                }
+            }
+        }
+    }
+    // .parallax-container {
+    //     height: 500px;
+    //     width: 100%;
+    // }
+}
