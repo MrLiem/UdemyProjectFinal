@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
 
 
-export default function MediaCard(props) {
+export default function CourseItem(props) {
   const classes = useStyles();
   const {moTa,hinhAnh,tenKhoaHoc}=props.item;
     
@@ -31,6 +31,10 @@ export default function MediaCard(props) {
       return string.substr(0,15)+'...'
     }
     return string;
+  }
+  let goToCourseDetail=()=>{
+    props.history.push('/courseDetail/'+props.item.maKhoaHoc);
+   // console.log("das",props.history);
   }
 
   return (
@@ -43,7 +47,7 @@ export default function MediaCard(props) {
             title="Contemplative Reptile"
           />
           <CardContent>
-            <Typography gutterBottom variant="p" component="h5">
+            <Typography gutterBottom variant="subtitle1" component="h2">
               {tenKhoaHoc}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
@@ -55,7 +59,7 @@ export default function MediaCard(props) {
           <Button size="small" color="primary">
             Share
           </Button>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={goToCourseDetail}>
             Learn More
           </Button>
         </CardActions>

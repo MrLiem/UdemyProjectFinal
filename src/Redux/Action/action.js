@@ -12,7 +12,22 @@ const reduxAction = (type, payload) => {
     }
 }
 
-//
+//async action : vừa trong lúc dispatch lên store thì gọi API lấy dữ liệu từ server
+export const fetchCourseDetail = (maKhoaHoc) => {
+    return (dispatch) => {
+        CourseService
+            .fetchCourseDetail(maKhoaHoc)
+            .then(res => {
+                dispatch({
+                    type: FETCH_COURSE_DETAIL,
+                    payload: res.data
+                })
+            }).catch(err => {
+                console.log(err);
+            })
+
+    }
+}
 
 
 

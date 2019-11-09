@@ -3,7 +3,7 @@ import Header from '../../Layouts/header/header'
 import Cover from '../../Layouts/cover/cover'
 import Intro from '../../Layouts/myIntro/myIntro'
 import Footer from '../../Layouts/footer/footer'
-import CourseItem from '../../Components/courseItem/courseItem'
+import CourseItems from '../../Layouts/courseItems/courseItems'
 
 //import axios lấy dữ liệu nè
 import axios from 'react-redux';
@@ -19,6 +19,8 @@ import reduxAction from '../../Redux/Action/action'
 
 // import type của action
 import { FETCH_COURSES } from '../../Redux/Action/type'
+
+
 
 class Home extends Component {
 
@@ -36,23 +38,14 @@ class Home extends Component {
     }
 
     render() {
-       // console.log(this.props.courseList)
+       //console.log(this.props.courseList)
         return (
             <div>
                 <Header/>
                 <Cover/>
                 <Intro/>
-
-                <h1 className="text-center display-4 text-success">Home</h1>
-                <div className="container">
-                    <div className="row">
-                        {this.props.courseList.map((item,index)=>(
-                            <CourseItem key={index} item ={item}/>
-                        ))}
-                    </div>
-                </div>
-
-                <Footer/>
+                <CourseItems courseList={this.props.courseList} history={this.props.history} />
+                <Footer/>        
             </div>
         )
     }

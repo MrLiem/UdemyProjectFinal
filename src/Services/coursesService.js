@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 class CourseService {
-    fetchCourseDetail() {
+    fetchCourseDetail(maKhoaHoc) {
         return axios({
-            url: "http://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=111",
+            url: `http://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`,
             method: 'GET'
         })
     }
