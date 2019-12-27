@@ -1,19 +1,23 @@
 import axios from 'axios'
 
 class CourseService {
-    fetchCourseDetail(maKhoaHoc) {
+    fetchCourseDetail(id) {
         return axios({
-            url: `http://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`,
+            url: `https://udemyproject-49572.firebaseio.com/products/${id}.json`,
             method: 'GET'
         })
+
     }
 
     fetchCourses() {
         return axios({
-            url: "http://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP01",
+            url: 'https://udemyproject-49572.firebaseio.com/products.json',
             method: 'GET'
         })
     }
+
+
+
 }
 
 export default new CourseService()

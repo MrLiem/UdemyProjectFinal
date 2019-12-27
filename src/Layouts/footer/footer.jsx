@@ -6,6 +6,7 @@ class Footer extends Component {
   render() {
     return (
       <footer>
+          <hr className="hr_end" />
         <div className={`container-fluid ${footer_links}`}>
           <div className="row">
             <div className="col-sm-9 ">
@@ -28,7 +29,7 @@ class Footer extends Component {
                 </ul>
               </div>
             </div>
-            <div className="col-sm-3">
+            {/* <div className="col-sm-3">
               <div className={dropup}>
                 <button 
                   type="button"
@@ -50,7 +51,7 @@ class Footer extends Component {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <hr />

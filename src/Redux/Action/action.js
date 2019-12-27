@@ -1,5 +1,6 @@
-import { FETCH_COURSE_DETAIL } from './type'
+import { FETCH_COURSE_DETAIL, AUTHENTICATE } from './type'
 import CourseService from '../../Services/coursesService'
+import Course from '../../models/Course'
 
 
 // async action hành động ko đồng bộ
@@ -12,15 +13,19 @@ const reduxAction = (type, payload) => {
     }
 }
 
+
 //async action : vừa trong lúc dispatch lên store thì gọi API lấy dữ liệu từ server
-export const fetchCourseDetail = (maKhoaHoc) => {
+export const fetchCourseDetail = (id) => {
+    const convertToCourse = (id, data) => {
+        return new Course(id, data.title, data.price, data.imageUrl, data.videoIntro, data.description, data.owner);
+    }
     return (dispatch) => {
         CourseService
-            .fetchCourseDetail(maKhoaHoc)
+            .fetchCourseDetail(id)
             .then(res => {
                 dispatch({
                     type: FETCH_COURSE_DETAIL,
-                    payload: res.data
+                    payload: convertToCourse(id, res.data)
                 })
             }).catch(err => {
                 console.log(err);
@@ -28,6 +33,8 @@ export const fetchCourseDetail = (maKhoaHoc) => {
 
     }
 }
+
+
 
 
 

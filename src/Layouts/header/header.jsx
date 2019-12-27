@@ -1,14 +1,49 @@
-import React, { Component } from "react";
-import classes from './headerStyle.module.scss'
+import React, { useEffect } from "react";
+import classes from "./headerStyle.module.scss";
+import { Link } from "react-router-dom";
+import IconButton from "../../Components/IconButton/IconButton";
+import Button from "../../Components/Button/Button";
+import Avatar from "../../Components/Avatar/Avatar";
+import CartIcon from '../../Components/CartIcon/CartIcon'
+import {useDispatch,useSelector} from 'react-redux'
+import UserServices from '../../Services/userService'
+import * as localStorage from '../../Services/localStorage'
 
-export default class Header extends Component {
-  render() {
+ const Header =props=> {
+  const currentUser= useSelector(state=>state.currentUser)
+  const dispatch= useDispatch();
+  
+  useEffect(()=>{
+    const user= localStorage.getFromLocalStorage();
+    dispatch(UserServices.fetchUser(user.userId))
+  },[])
+
+ 
+  
+  const returnHomePage = () => {
+    props.history.push("/home");
+    //props.history.push('/courseDetail_maKh/'+props.item.id);
+  };
+
+  const avatarClicked=()=>{
+    props.history.push("/user");
+  }
+
+  const returnCourseListScreen = () => {
+    props.history.push("/orderedCourses");
+  };
+
+    const avatarImage= currentUser.imageUrl;
     return (
       <header className={`container-fluid ${classes.myNavBar}`}>
         <nav className="navbar navbar-expand-md navbar-light">
-          <div className="col-6 col-md-8  col-xl-6">
+          <div className="col-6 col-md-8  col-xl-8">
             <div className="row">
-              <a className={`navbar-brand ${classes.navbar_brand}`} href="#">
+              <a
+                onClick={returnHomePage}
+                className={`navbar-brand ${classes.navbar_brand}`}
+                href="#"
+              >
                 <img src="./img/logo-coral.svg" alt="logo" />
               </a>
               <div className={classes.categories}>
@@ -24,8 +59,13 @@ export default class Header extends Component {
                       aria-label="Username"
                       aria-describedby="basic-addon1"
                     />
-                    <div className={`input-group-prepend ${classes.input_group_prepend}`}>
-                      <span className={`input-group-text ${classes.input_group_text}`} id="basic-addon1">
+                    <div
+                      className={`input-group-prepend ${classes.input_group_prepend}`}
+                    >
+                      <span
+                        className={`input-group-text ${classes.input_group_text}`}
+                        id="basic-addon1"
+                      >
                         <i className="fa fa-search" />
                       </span>
                     </div>
@@ -34,31 +74,32 @@ export default class Header extends Component {
               </div>
             </div>
           </div>
-          <div className="col-4 col-md-4  col-xl-6" style={{ marginBottom: 4 }}>
-            <div className="collapse navbar-collapse" id="collapsibleNavId">
-              <ul className={`navbar-nav mr-auto ${classes.navbar_nav}`}>
-                <li className={`nav-item business ${classes.nav_item}`}>
-                  <a className={`nav-link ${classes.nav_link}`} href="#">
-                    Udemy for Bussiness
-                  </a>
-                </li>
-                <li className={`nav-item instructor ${classes.nav_item}`}>
-                  <a className={`nav-link ${classes.nav_link}`} href="#">
-                    Become an Instructor
-                  </a>
-                </li>
-                <li className={`nav-item ${classes.nav_item}`}>
-                  <a className={`nav-link ${classes.nav_link}`} href="#">
-                    <i className="fa fa-shopping-cart" />
-                  </a>
-                </li>
-                <li className={classes.nav_item}>
-                  <div className="button">
-                    <button className="btn btn-white">Log In</button>
-                    <button className="btn btn-red">Sign Up</button>
-                  </div>
-                </li>
-              </ul>
+          <div className="col-4 col-md-4  col-xl-4" style={{ marginBottom: 4 }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center"
+              }}
+            >
+              <div>
+                <Button
+                  text="Course List"
+                  onClick={returnCourseListScreen}
+                />
+              </div>
+              <div>
+                <Avatar
+                  alt="NONE"
+                  src={avatarImage}
+                  width="45px"
+                  height="45px"
+                  onClick={avatarClicked}
+                />
+              </div>
+              <div>
+                <CartIcon history={props.history}/>
+              </div>
             </div>
           </div>
           <button
@@ -75,5 +116,8 @@ export default class Header extends Component {
         </nav>
       </header>
     );
-  }
+  
 }
+
+
+export default Header

@@ -1,0 +1,48 @@
+@import '../../SCSS/variables';
+@import '../../SCSS/mixin';
+.banner {
+    .banner_content {
+        background-color: $color-black-0;
+        border-top: 8px solid $color-purple;
+        .banner_item1,
+        .banner_item3 {
+            display: flex;
+            justify-content: space-around;
+            @include text($color-white-0, 32px, 900);
+            padding: $pd-2;
+            @include respond-to('large') {
+                i {
+                    display: none;
+                }
+            }
+        }
+        .banner_item2 {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 80%;
+            margin: auto;
+            text-align: center;
+            padding: $pd-2;
+            i {
+                @include text($color-white-0, 32px, 900);
+            }
+            @include respond-to('large') {
+                i {
+                    display: none;
+                }
+            }
+            .banner_title {
+                h3 {
+                    @include text($color-white-0, $fs-3, $fw-normal);
+                }
+                p {
+                    @include text($color-white-0, $fs-0, $fw-normal);
+                }
+                button {
+                    padding: $pd-1;
+                }
+            }
+        }
+    }
+}

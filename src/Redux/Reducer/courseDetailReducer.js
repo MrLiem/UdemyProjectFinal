@@ -6,6 +6,7 @@ const CourseDetail = (state = initCourse, { type, payload }) => {
     switch (type) {
         case FETCH_COURSE_DETAIL:
             {
+                // console.log("detail reducer", payload);
                 state = payload;
                 return {...state };
             }

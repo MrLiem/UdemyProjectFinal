@@ -1,2 +1,6 @@
 export const FETCH_COURSE_DETAIL = "FETCH_COURSE_DETAIL";
 export const FETCH_COURSES = "FETCH_COURSES";
+export const AUTHENTICATE = "AUTHENTICATE"
+    //user
+export const LOGIN = 'LOGIN';
+export const FETCH_CURRENT_USER = 'FETCH_CURRENT_USER'
