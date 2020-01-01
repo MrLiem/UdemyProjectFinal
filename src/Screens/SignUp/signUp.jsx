@@ -79,7 +79,7 @@ export default function SignUp(props) {
    const action=signUp(email,password);
    try{
     await dispatch(action);
-    props.history.push("/user");
+    props.history.push("/home");
    }catch(err){
      console.log(err)
       alert('Something wrong')

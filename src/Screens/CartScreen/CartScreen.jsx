@@ -1,21 +1,30 @@
-import React from "react";
+import React,{useState} from "react";
 import Header from "../../Layouts/header/header";
 import Footer from "../../Layouts/footer/footer";
 import { useSelector, useDispatch } from "react-redux";
 import CourseItems from "../../Components/courseItems/courseItems";
 import ConvertJsonToArray from "../../Utils/convertJsonToArray";
 import * as OrderActions from '../../Redux/Action/OrderAction';
+import Spinner from '../../Components/Spinner/Spinner'
 
 const CartScreen = props => {
+  const [isLoading,setIsLoading]=useState(false);
+  console.log(isLoading);
   const coursesCarted = ConvertJsonToArray(
     useSelector(state => state.cart.courses)
   );
+  // console.log(coursesCarted)
   const totalAmount = useSelector(state => state.cart.totalAmount);
 
    const dispatch=useDispatch();
 
   const addOrder=(courses,totalAmount)=>{
-    dispatch(OrderActions.addOrder(courses,totalAmount))
+    setIsLoading(true)
+    dispatch(OrderActions.addOrder(courses,totalAmount)).then(res=>setIsLoading(false))
+  }
+
+  if(isLoading){
+    return <Spinner/>
   }
   if (coursesCarted.length === 0) {
     return (

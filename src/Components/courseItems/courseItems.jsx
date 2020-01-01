@@ -6,11 +6,15 @@ export default class CourseItems extends Component {
     return (
       <div className="container">
         <div className="row">
-          {this.props.courseList!==null && !this.props.isCartScreen && this.props.courseList.map((item, index) => (          
-              <CourseItem key={index} item={item} history={this.props.history} isOrdered={this.props.isOrdered}/>          
+          {this.props.courseList!==null && !this.props.isCartScreen && this.props.courseList.map((item, index) => (  
+             <div className="col-3 mt-4" key={index}>        
+              <CourseItem  item={item} history={this.props.history} isOrdered={this.props.isOrdered}/>       
+              </div>   
           ))}
-          {this.props.courseList!==null && this.props.isCartScreen && this.props.courseList.map((item, index) => (          
-              <CartItem key={index} item={item} history={this.props.history} />          
+          {this.props.courseList!==null && this.props.isCartScreen && this.props.courseList.map((item, index) => (     
+             <div className="col-3 mt-4"  key={index}>     
+              <CartItem item={item} history={this.props.history} />          
+              </div>
           ))}
         </div>
       </div>

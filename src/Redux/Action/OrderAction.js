@@ -4,7 +4,7 @@ export const ADD_ORDER = 'ADD_ORDER';
 export const SET_ORDERS = 'SET_ORDERS';
 
 export const fetchOrders = () => {
-    return async(dispatch, getState) => {
+    return async(dispatch) => {
         const user = localStorage.getFromLocalStorage();
         try {
             const response = await fetch(`https://udemyproject-49572.firebaseio.com/orders/${user.userId}.json`);

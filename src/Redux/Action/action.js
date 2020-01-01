@@ -19,7 +19,7 @@ export const fetchCourseDetail = (id) => {
     const convertToCourse = (id, data) => {
         return new Course(id, data.title, data.price, data.imageUrl, data.videoIntro, data.description, data.owner);
     }
-    return (dispatch) => {
+    return async(dispatch) => {
         CourseService
             .fetchCourseDetail(id)
             .then(res => {

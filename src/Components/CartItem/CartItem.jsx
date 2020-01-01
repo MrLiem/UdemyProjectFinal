@@ -69,7 +69,6 @@ export default function CartItem(props) {
   };
 
   return (
-    <div className="col-3 mt-4">
       <Card className={classes.card}>
         <CardActionArea onClick={goToCourseDetail}>
           <CardMedia
@@ -103,6 +102,5 @@ export default function CartItem(props) {
           </Button>
         </CardActions>
       </Card>
-    </div>
   );
 }

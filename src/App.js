@@ -13,9 +13,9 @@ import SignIn from "./Screens/SignIn/signIn";
 import SignUp from "./Screens/SignUp/signUp";
 
 import User2 from "./Screens/Users/User2";
-import MyOrderedScreen from './Screens/MyOrderedScreen/MyOrderedScreen'
-import CartScreen from './Screens/CartScreen/CartScreen'
-import OrderScreen from './Screens/OrderScreen/OrderScreen'
+import MyOrderedScreen from "./Screens/MyOrderedScreen/MyOrderedScreen";
+import CartScreen from "./Screens/CartScreen/CartScreen";
+import OrderScreen from "./Screens/OrderScreen/OrderScreen";
 
 function App() {
   return (
@@ -30,8 +30,8 @@ function App() {
             <Route path="/signUp" component={SignUp} />
             <Route path="/user" component={User2} />
             <Route path="/orderedCourses" component={MyOrderedScreen} />
-            <Route path='/cart' component={CartScreen}/>
-            <Route path='/orders' component={OrderScreen}/>
+            <Route path="/cart" component={CartScreen} />
+            <Route path="/orders" component={OrderScreen} />
             <Redirect to="/signIn"> </Redirect>
           </Switch>
         </Fragment>

@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { FETCH_CURRENT_USER } from '../Redux/Action/type';
-
+import * as localStorage from '../Services/localStorage'
+const { token } = localStorage.getFromLocalStorage()
 class UserService {
+
     addUser(user) {
         return axios({
-            url: 'https://udemyproject-49572.firebaseio.com/users.json',
+            url: `https://udemyproject-49572.firebaseio.com/users.json?auth=${token}`,
             method: 'POST',
             data: JSON.stringify(user)
         })
@@ -32,7 +34,8 @@ class UserService {
             const resData = response.data;
             for (const key in resData) {
                 if (resData[key].userId === userId) {
-                    dispatch({ type: FETCH_CURRENT_USER, payload: resData[key] })
+
+                    dispatch({ type: FETCH_CURRENT_USER, payload: resData[key], id: key })
                 }
             }
 

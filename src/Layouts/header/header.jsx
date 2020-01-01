@@ -8,9 +8,10 @@ import CartIcon from '../../Components/CartIcon/CartIcon'
 import {useDispatch,useSelector} from 'react-redux'
 import UserServices from '../../Services/userService'
 import * as localStorage from '../../Services/localStorage'
-
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import * as AuthServices from '../../Services/authService'
  const Header =props=> {
-  const currentUser= useSelector(state=>state.currentUser)
+  const currentUser= useSelector(state=>state.currentUser.info)
   const dispatch= useDispatch();
   
   useEffect(()=>{
@@ -18,6 +19,10 @@ import * as localStorage from '../../Services/localStorage'
     dispatch(UserServices.fetchUser(user.userId))
   },[])
 
+  const onTextChange=(event)=>{
+   
+    props.onInputChange(event.target.value)
+  }
  
   
   const returnHomePage = () => {
@@ -32,6 +37,12 @@ import * as localStorage from '../../Services/localStorage'
   const returnCourseListScreen = () => {
     props.history.push("/orderedCourses");
   };
+
+  const logOut=()=>{
+    dispatch(AuthServices.logOut()).then(res=>props.history.push("/signIn"));
+    
+    
+  }
 
     const avatarImage= currentUser.imageUrl;
     return (
@@ -58,6 +69,7 @@ import * as localStorage from '../../Services/localStorage'
                       placeholder="Search for anything"
                       aria-label="Username"
                       aria-describedby="basic-addon1"
+                      onChange={onTextChange}
                     />
                     <div
                       className={`input-group-prepend ${classes.input_group_prepend}`}
@@ -84,9 +96,12 @@ import * as localStorage from '../../Services/localStorage'
             >
               <div>
                 <Button
-                  text="Course List"
+                  text="My Ordered Courses"
                   onClick={returnCourseListScreen}
                 />
+              </div>
+              <div>
+                <CartIcon history={props.history}/>
               </div>
               <div>
                 <Avatar
@@ -97,9 +112,7 @@ import * as localStorage from '../../Services/localStorage'
                   onClick={avatarClicked}
                 />
               </div>
-              <div>
-                <CartIcon history={props.history}/>
-              </div>
+              <div onClick={logOut}><ExitToAppIcon/></div>
             </div>
           </div>
           <button

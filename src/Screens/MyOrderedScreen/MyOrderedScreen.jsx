@@ -4,17 +4,21 @@ import CourseItems from "../../Components/courseItems/courseItems";
 import Footer from '../../Layouts/footer/footer'
 import {useSelector,useDispatch} from 'react-redux'
 import * as OrderActions from '../../Redux/Action/OrderAction'
-
+import Spinner from '../../Components/Spinner/Spinner'
 const MyOrderedCourses = props => {
- 
+  
   const orderedList= useSelector(state=>state.order.orderedCoures);
   const dispatch=useDispatch();
+  const [isLoading,setIsLoading]=useState(false);
 
-  // console.log(orderedList)
   useEffect(()=>{
-    dispatch(OrderActions.fetchOrders());
-  })
+    setIsLoading(true);
+    dispatch(OrderActions.fetchOrders()).then(res=>setIsLoading(false));
+  },[])
 
+  if(isLoading){
+    return <Spinner/>
+  }
   return (
     <div>
       <Header history={props.history}/>

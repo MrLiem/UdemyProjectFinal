@@ -21,17 +21,17 @@ const useStyles = makeStyles({
 
 export default function ImgMediaCard(props) {
   const classes = useStyles();
-  console.log(props.isOrdered);
+  // console.log(props.isMyCourse);
   return (
     <div className={classes.myVideo}>
-      {props.isOrdered ? (
+      {props.isOrdered || props.isMyCourse? (
         <Card className={classes.card}>
           <CardActionArea>
             <CardMedia
               component="iframe"
               alt="Video Education"
               height="350"
-              src="https://www.youtube.com/embed/EWeh1sZc1JI"
+              src={props.videoUrl}
               title="Video Education"
             />
             <CardContent>

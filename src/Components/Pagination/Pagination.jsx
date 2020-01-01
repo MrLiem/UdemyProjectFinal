@@ -8,6 +8,7 @@ export default function Pagination(props) {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    props.chooseCategory(event.target.textContent);
   };
 
   return (
@@ -19,10 +20,15 @@ export default function Pagination(props) {
         onChange={handleChange}
         aria-label="disabled tabs example"
       >
-        <Tab label="Active" />
-        {/* <Tab label="Disabled" disabled /> */}
-        <Tab label="Active" />
+        <Tab label='ALL'/>
+        <Tab label="Frontend"/>
+        <Tab label="Backend" />
+        <Tab label="FullStack" />
+        <Tab label="Design"  />
+        <Tab label="AI"  />
+        <Tab label="Others"  />
       </Tabs>
     </Paper>
+    
   );
 }

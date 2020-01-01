@@ -13,6 +13,7 @@ const convertJsonToArray = coursesList => {
             coursesList[key].videoIntro,
             coursesList[key].description,
             coursesList[key].owner,
+            coursesList[key].category
         );
 
         arrayCoursesList.push(course);

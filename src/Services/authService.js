@@ -36,16 +36,16 @@ export const signUp = (email, password) => {
         // dispatch({ type: AUTHENTICATE, token: resData.idToken, userId: resData.localId });
 
 
-        //them user vao database
-        // let user = new User(resData.localId, "None", resData.email, 'None', 'HV', 'None', 'None');
-        // UserService
-        //     .addUser(user)
-        //     .then(res => {
-        //         console.log(res.data)
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     });
+        // them user vao database
+        let user = new User(resData.localId, "None", email, 'None', 'HV', password, 'http://bootdey.com/img/Content/avatar/avatar7.png');
+        UserService
+            .addUser(user)
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err);
+            });
 
 
     }
@@ -97,3 +97,12 @@ export const signIn = (email, password) => {
 
     }
 };
+
+export const LOG_OUT = 'LOG_OUT';
+export const logOut = () => {
+    return async dispatch => {
+        await dispatch({ type: LOG_OUT })
+        localStorage.saveToLocalStorage(null, null)
+    }
+
+}

@@ -18,7 +18,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import { useDispatch } from "react-redux";
 import * as CartActions from "../../Redux/Action/CartAction";
-import CheckIcon from '@material-ui/icons/Check';
+import CheckIcon from "@material-ui/icons/Check";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -82,7 +82,27 @@ export default function RecipeReviewCard(props) {
           {props.item.description}
         </Typography>
       </CardContent>
-      {props.isOrdered ? (<div><span className='text-danger font-weight-bold' style={{paddingLeft: '20px'}}>Ordered</span> <CheckIcon/></div>) : (
+      {props.isMyCourse ? (
+        <div>
+          <span
+            className="text-success font-weight-bold"
+            style={{ paddingLeft: "20px" }}
+          >
+            MyCourse
+          </span>
+          <CheckIcon />
+        </div>
+      ) : props.isOrdered ? (
+        <div>
+          <span
+            className="text-danger font-weight-bold"
+            style={{ paddingLeft: "20px" }}
+          >
+            Ordered
+          </span>
+          <CheckIcon />
+        </div>
+      ) : (
         <div className="ml-3">
           <Button
             variant="contained"

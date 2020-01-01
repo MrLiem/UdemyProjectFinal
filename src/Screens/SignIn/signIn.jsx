@@ -74,7 +74,7 @@ export default function SignInSide(props) {
     const action=signIn(email,password);
     try{
       await dispatch(action);
-      props.history.push("/user");
+      props.history.push("/home");
     }
     catch(err){
       alert("Sai thong tin dang nhap");

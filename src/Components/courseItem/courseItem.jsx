@@ -10,8 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import Course from "../../models/Course";
 import { useDispatch } from "react-redux";
 import * as CartActions from "../../Redux/Action/CartAction";
-import CheckIcon from '@material-ui/icons/Check';
-
+import CheckIcon from "@material-ui/icons/Check";
+import * as CourseAcions from "../../Redux/Action/CourseActions";
 const useStyles = makeStyles({
   card: {
     maxWidth: 345,
@@ -86,66 +86,100 @@ export default function CourseItem(props) {
     dispatch(CartActions.addToCart(course));
   };
 
+  // const deleteCourse=(id)=>{
+  //   dispatch(CourseAcions.deleteCourse(id));
+  // }
+
   return (
-    <div className="col-3 mt-4">
-      <Card className={classes.card}>
-        <CardActionArea onClick={goToCourseDetail}>
-          <CardMedia
-            className={classes.media}
-            image={imageUrl}
-            title="Contemplative Reptile"
-          />
-          <CardContent className={classes.content}>
-            <p className={classes.myTitle}>{title}</p>
-            <p className={classes.myDescription}>
-              {_shortenString(description)}
-            </p>
-          </CardContent>
-        </CardActionArea>
-        {props.isOrdered ? (
-          <CardActions>
-            <Button
-              size="small"
-              color="primary"
-              onClick={goToCourseDetail}
-              style={{ paddingRight: 30 }}
-            >
-              View Detail
-            </Button>
+    <Card className={classes.card}>
+      <CardActionArea onClick={goToCourseDetail}>
+        <CardMedia
+          className={classes.media}
+          image={imageUrl}
+          title="Contemplative Reptile"
+        />
+        <CardContent className={classes.content}>
+          <p className={classes.myTitle}>{title}</p>
+          <p className={classes.myDescription}>{_shortenString(description)}</p>
+        </CardContent>
+      </CardActionArea>
+      {props.isOrdered ? (
+        <CardActions>
+          <Button
+            size="small"
+            color="primary"
+            onClick={goToCourseDetail}
+            style={{ paddingRight: 30 }}
+          >
+            View Detail
+          </Button>
 
-           <div><span className='text-danger font-weight-bold'>Ordered</span> <CheckIcon/></div>
-          </CardActions>
-        ) : (
-          <CardActions>
-            <Button
-              size="small"
-              color="primary"
-              onClick={goToCourseDetail}
-              style={{ paddingRight: 30 }}
-            >
-              View Detail
-            </Button>
+          <div>
+            <span className="text-danger font-weight-bold">Ordered</span>{" "}
+            <CheckIcon />
+          </div>
+        </CardActions>
+      ) : (
+        <CardActions>
+          <Button
+            size="small"
+            color="primary"
+            onClick={goToCourseDetail}
+            style={{ paddingRight: 30 }}
+          >
+            View Detail
+          </Button>
 
+          {props.isDelete ? (
             <Button
               size="small"
-              color="primary"
-              onClick={() =>
-                addToCart(
-                  id,
-                  title,
-                  price,
-                  imageUrl,
-                  videoIntro,
-                  description,
-                  owner
-                )
-              }
+              color="secondary"
+              onClick={() => props.deleteCourse(id)}
             >
-              Add To Cart
+              Delete Course
             </Button>
-          </CardActions>
-        )}
-      </Card>
-    </div>
+          ) : 
+          props.isMyCourse ? (
+            <div>
+              <span
+                className="text-success font-weight-bold"
+                style={{ paddingLeft: "20px" }}
+              >
+                MyCourse
+              </span>
+              <CheckIcon />
+            </div>
+          ) : props.isOrdered ? (
+            <div>
+              <span
+                className="text-danger font-weight-bold"
+                style={{ paddingLeft: "20px" }}
+              >
+                Ordered
+              </span>
+              <CheckIcon />
+            </div>
+          ) : (
+            <Button
+            size="small"
+            color="primary"
+            onClick={() =>
+              addToCart(
+                id,
+                title,
+                price,
+                imageUrl,
+                videoIntro,
+                description,
+                owner
+              )
+            }
+          >
+            Add To Cart
+          </Button>
+          )}
+        </CardActions>
+      )}
+    </Card>
   );
 }
