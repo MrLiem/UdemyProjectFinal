@@ -1,0 +1,241 @@
+.udemyNavbar {
+  .header__navbar {
+    
+  align-items: none!important;
+  .header__left {
+    .categories {
+      cursor: pointer;
+      align-self: center;
+      @include text-style($color-black-light, $fs-1, $fw-normal);
+      padding: $pd-0 0;
+      &:hover {
+        background-color: $color-gray-1;
+        color: $color-gray-4;
+      }
+    }
+    .navbar-collapse {
+      flex-grow: 0;
+    }
+    .navbar-brand {
+      img {
+        width: 110px;
+      }
+    }
+    .formSearch {
+        flex-grow: 5;
+        @include inputSearch($color-white-cream, $color-white-cream, $color-white-0, $color-gray-6, $color-white-0, $color-gray-6);
+      
+        .input-group-text {
+          cursor: pointer;
+        }
+    }
+  }
+
+  .header__right{
+    padding: $pd-1 - 5 0 $pd-1 - 5 $pd-2;
+    .row {
+      margin: 0!important;
+    }
+    .shopingCart {
+      .redNotice {
+        color: $color-red-2;
+      }
+      line-height: 34px;
+      cursor: pointer;
+      @include text-style($color-black-light, $fs-2, $fw-normal);
+      padding: $pd-0 $pd-2;
+        &:hover {
+          background-color: $color-gray-1;
+          color: $color-gray-4;
+        }
+    }
+      .navbar-nav {
+        
+          .nav-item {
+            .nav-link {
+              @include text-style($color-black-light, $fs-1, $fw-normal);
+              padding: $pd-1 + 2.5 $pd-2;
+              cursor: pointer;
+  
+            }
+
+            &:hover {
+              background-color: $color-gray-1;
+              color: $color-gray-4;
+            }
+          }
+          .nav-item:nth-child(3) {
+              border-radius: 50%;
+          }
+      }
+      
+    }
+  } 
+}
+        // RESPONSIVES
+
+        @include mediaQuery('very-small') {
+          .header__navbar { 
+            .header__left {
+              .header__left__responsiveButton {
+                margin-left: -5%;
+                
+              }
+
+              .header__logo {
+                margin-left: 45%;
+              }
+
+              .categories {
+                display: none;
+              }
+              
+              .formSearch {
+                  display: none;
+
+              }
+          }
+          .header__right{
+            .navbar-nav {
+              .loginSignupDivision {
+                .nav-link {
+                  display: none;
+                }
+                
+              }
+            }
+            
+            .header__right__shoppingCart {
+              position: absolute;
+              top: -200%;
+              left: 0;
+            }
+          }
+        }
+        
+      }
+
+        @include mediaQuery('small') {
+          .header__navbar { 
+            .header__left {
+              .header__left__responsiveButton {
+                position: absolute;
+                left: 0;
+              }
+
+              .header__logo {
+                margin-left: 50%;
+              }
+
+              .categories {
+                display: none;
+              }
+
+              .formSearch {
+                max-width: 48%;
+                display: none;
+              }
+          }
+
+          .header__right{
+            .navbar-nav {
+              .loginSignupDivision {
+                .nav-link {
+                  display: none;
+                }
+                
+              }
+            }
+          }
+        }
+        
+      }
+        
+        @include mediaQuery('medium') {
+
+          .container {
+            padding-right: 0; 
+          }
+          
+          .header__navbar { 
+            .header__left {
+
+              .header__left__responsiveButton {
+                position: absolute;
+                left: -5%;
+              }
+
+              .header__logo {
+                margin-left: 45%;
+              }
+
+              .categories {
+                display: none;
+              }
+
+              .formSearch {
+                  max-width: 48%!important;
+                  display: none;
+              }
+              
+          }
+
+          .header__right {
+            .navbar-nav {
+              .loginSignupDivision {
+                .nav-link {
+                  display: none;
+                }
+                
+              }
+            }
+
+            .header__right__shoppingCart {
+              margin-left: 30%;
+            }
+
+            .header__right__accountElement {
+              display: none;
+            }
+
+          }
+        }
+        
+      }
+
+        @include mediaQuery('large') {
+          .container {
+            padding-right: 0; 
+          }
+          .header__navbar {
+            .header__left {
+              .formSearch {
+                max-width: 42%;
+                .form-control::placeholder {
+                  @include text-style($color-black-light, $fs-1, $fw-normal);
+                  
+                }
+              }
+            }
+
+            .header__right{ 
+              .dropdown-menu {
+                position: absolute;
+                min-width: 0!important;
+              }
+            }
+          }
+          
+        } 
+        
+        @include mediaQuery('extra-large') {
+          .header__navbar { 
+            .formSearch {
+              flex-grow: 5;
+              .header__right{ 
+                  padding-right: 30px;
+              }
+            }
+          }
+          
+      } 

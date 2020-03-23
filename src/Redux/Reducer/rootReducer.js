@@ -1,19 +1,15 @@
-import { combineReducers } from 'redux';
-import CourseReducer from './coursesReducer'
-import CourseDetail from './courseDetailReducer';
-import Auth from './auth'
-import CurrentUser from './currentUser'
-import CartReducer from './CartReducer'
-import OrderReducer from './OrderReducer'
+import { combineReducers } from "redux";
+
+//Course
+import CourseReducer from "./Course/courseReducer";
+
+// User
+import UserReducer from "./User/userReducer";
 
 const RootReducer = combineReducers({
-    // toàn bộ state
-    courseList: CourseReducer,
-    courseDetail: CourseDetail,
-    auth: Auth,
-    currentUser: CurrentUser,
-    cart: CartReducer,
-    order: OrderReducer
-})
+  //toàn bộ state
+  courseReducer: CourseReducer,
+  userReducer: UserReducer,
+});
 
-export default RootReducer
+export default RootReducer;

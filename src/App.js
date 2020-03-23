@@ -1,43 +1,59 @@
-import React, { Fragment } from "react";
-import Home from "./Screens/Home/home";
-import CssBaseline from "@material-ui/core/CssBaseline";
-// import route
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-
-// import CourseDatailTheme
+import React, { Component } from "react";
+import HomeScreen from "./Screens/Home/home";
 import CourseDetail from "./Screens/CourseDetail/courseDetail";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-// import SignIn Theme
-import SignIn from "./Screens/SignIn/signIn";
-// import SignUp Theme
-import SignUp from "./Screens/SignUp/signUp";
+import { connect } from "react-redux";
+import reduxAction from "./Redux/Action/action";
+import { restConnector } from "./Services";
 
-import User2 from "./Screens/Users/User2";
-import MyOrderedScreen from "./Screens/MyOrderedScreen/MyOrderedScreen";
-import CartScreen from "./Screens/CartScreen/CartScreen";
-import OrderScreen from "./Screens/OrderScreen/OrderScreen";
+// import Layout
+import HeaderComponent from "./Layouts/Header/Header";
+import FooterComponent from './Layouts/Footer/Footer';
 
-function App() {
-  return (
-    <React.Fragment>
-      <CssBaseline />
+import { LOGIN } from "./Redux/Action/type";
+import ProfileDetail from "./Screens/Profile/ProfileDetail";
+import CourseListCategoriesComponent from "./Components/CourseItem/CourseListCategories/CourseListCategories";
+import PageResult from "./Screens/PageSearch/PageResult";
+import CourseApprovedComponent from "./Screens/CourseManagement/CourseApproved";
+import PageNotFound from "./Screens/PageNotFound/PageNotFound";
+
+import './App.scss';
+
+
+class App extends Component {
+  render() {   
+    return (
+      
       <BrowserRouter>
-        <Fragment>
-          <Switch>
-            <Route path="/signIn" component={SignIn} />
-            <Route path="/home" component={Home} />
-            <Route path="/courseDetail_maKh/:id" component={CourseDetail} />
-            <Route path="/signUp" component={SignUp} />
-            <Route path="/user" component={User2} />
-            <Route path="/orderedCourses" component={MyOrderedScreen} />
-            <Route path="/cart" component={CartScreen} />
-            <Route path="/orders" component={OrderScreen} />
-            <Redirect to="/signIn"> </Redirect>
-          </Switch>
-        </Fragment>
+        <HeaderComponent />
+        <Switch>
+            <Route exact path="/home" component={HomeScreen} />
+            <Route exact path="/" component={HomeScreen} />
+            <Route exact path="/coursedetail/:courseid" component={CourseDetail}/>
+            <Route exact path="/profile" component={ProfileDetail} />
+            <Route exact path="/coursecategories/:maDanhMuc" component={CourseListCategoriesComponent}/>
+            <Route exact path="/page-result/:tenKhoaHoc" component={PageResult} />
+            <Route exact path="/my-course" component={CourseApprovedComponent} />
+            <Route component={PageNotFound} />
+            <Route exact path="/" component={HomeScreen} />
+        </Switch>
+        <FooterComponent />
+  
       </BrowserRouter>
-    </React.Fragment>
-  );
+    );
+  }
+  componentDidMount() {
+    const userLoginStr = localStorage.getItem("userLogin");
+    const userAccessToken = localStorage.getItem('accessToken');
+    if (userLoginStr && userAccessToken) {
+      restConnector.defaults.headers['Authorization'] = "Bearer " + userAccessToken
+      
+      this.props.dispatch( reduxAction( LOGIN, JSON.parse(userLoginStr) )  );
+
+    }
+ 
+  }
 }
 
-export default App;
+export default connect()(App);

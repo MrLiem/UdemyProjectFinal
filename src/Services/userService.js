@@ -1,48 +1,85 @@
-import axios from 'axios'
-import { FETCH_CURRENT_USER } from '../Redux/Action/type';
-import * as localStorage from '../Services/localStorage'
-const { token } = localStorage.getFromLocalStorage()
+import { restConnector } from ".";
+import { settings } from "../Config/settings";
+
 class UserService {
-
-    addUser(user) {
-        return axios({
-            url: `https://udemyproject-49572.firebaseio.com/users.json?auth=${token}`,
-            method: 'POST',
-            data: JSON.stringify(user)
-        })
+    userLoginAction(userLogin) {
+        return restConnector({
+            method: "POST",
+            url: "/api/quanlynguoidung/dangnhap",
+            data: userLogin,
+        });
     }
 
-    fetchUser(userId) {
-        return async dispatch => {
-            const response = await axios({
-                url: `https://udemyproject-49572.firebaseio.com/users.json`,
-                method: 'GET'
-            })
-
-            // if (!response.ok) {
-            //     const errorResData = await response.json();
-            //     const errorId = errorResData.error.message;
-            //     let message = 'Something went wrong!';
-            //     if (errorId === 'EMAIL_NOT_FOUND') {
-            //         message = 'This email could not be found!'
-            //     } else if (errorId === 'INVALID_PASSWORD') {
-            //         message = 'This password is not valid!'
-            //     }
-            //     throw new Error(message);
-            // }
-
-            const resData = response.data;
-            for (const key in resData) {
-                if (resData[key].userId === userId) {
-
-                    dispatch({ type: FETCH_CURRENT_USER, payload: resData[key], id: key })
-                }
-            }
-
-        }
-
+    userRegisterAction(userRegister) {
+        return restConnector({
+            method: "POST",
+            url: "/api/QuanLyNguoiDung/DangKy",
+            data: userRegister
+        });
     }
+
+    userProfileUpdate(userProfileUpdate) {
+        return restConnector({
+            method: "PUT",
+            url: "/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
+            header: { 
+              'Authorization': "Bearer " + settings.token },
+            data: userProfileUpdate,
+        });
+    }
+
+    userAddCourse(taiKhoan, maKhoaHoc) {
+        return restConnector({
+            method: "POST",
+            url: "/api/QuanLyKhoaHoc/DangKyKhoaHoc",
+            data: {
+                taiKhoan: taiKhoan,
+                maKhoaHoc: maKhoaHoc,
+                header: settings.token,
+            },
+                
+        });
+    }
+
+    userCancelCourse(taiKhoan, maKhoaHoc) {
+        return restConnector({
+            method: "POST",
+            url: "/api/QuanLyKhoaHoc/HuyGhiDanh",
+            data: {
+                taiKhoan: taiKhoan,
+                maKhoaHoc: maKhoaHoc,
+                header: settings.token,
+            },
+                
+        });
+    }
+    
+    userCheckCourse(taiKhoan, matKhau) {
+        return restConnector({
+            method: "POST",
+            url: "/api/QuanLyNguoiDung/ThongTinTaiKhoan",
+            data: {
+                taiKhoan: taiKhoan,
+                matKhau: matKhau,
+                header: settings.token,
+            },
+                
+        });
+    }
+
+    userCheckCourseApproved(taiKhoan) {
+        return restConnector({
+            method: "POST",
+            url: "/api/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet",
+            data: {
+                taiKhoan: taiKhoan,
+                header: settings.token,
+            },
+                
+        });
+    }
+    
+    
 }
 
-
-export default new UserService();
+export default UserService;
