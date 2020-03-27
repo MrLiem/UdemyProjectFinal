@@ -1,35 +1,50 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
+import "./styles/main.scss";
+import App from "./components/App.jsx";
 import * as serviceWorker from "./serviceWorker";
 
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
-import RootReducer from "./Redux/Reducer/rootReducer";
-import reduxThunk from "redux-thunk";
+import rootReducer from "./store/reducers/rootReducer";
+import thunk from "redux-thunk";
 
-const composeEnhancers = typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-      })
-    : compose;
+import { firebaseApp } from "./services/firebase";
+import { firestore } from "./services/firebase";
+import { setCurrentUser } from "./store/actions/users";
 
-const enhancer = composeEnhancers(
-  applyMiddleware(reduxThunk)
-  // other store enhancers if any
+let store = createStore(
+    rootReducer,
+    compose(
+        applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
 );
 
-const store = createStore(RootReducer, enhancer);
+/**----------------------------------------
+* Function: Kiem tra trang thai cua user, lang nghe theo thoi gian thuc
+* Component: HomePage
+----------------------------------------**/
+firebaseApp.auth().onAuthStateChanged(user => {
+    if (user) {
+        firestore
+            .collection("users")
+            .doc(user.uid)
+            .get()
+            .then(snapshot => {
+                store.dispatch(setCurrentUser(snapshot.data()));
+            });
+            store.dispatch(setCurrentUser("loading"));
+    } else {
+        store.dispatch(setCurrentUser({}));
+    }
+});
 
 ReactDOM.render(
-  <Provider store={store}>
-       <App />
-  </Provider>,
-  document.getElementById("root")
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
